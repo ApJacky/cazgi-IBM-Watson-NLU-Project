@@ -53,9 +53,9 @@ class App extends React.Component {
       if(response.data === "positive") {
         output = <div style={{color:"green",fontSize:20}}>{response.data}</div>
       } else if (response.data === "negative"){
-        output = <div style={{color:"red",fontSize:20}}>{response.data}</div>
+        output = <div style={{color:"yellow",fontSize:20}}>{response.data}</div>
       } else {
-        output = <div style={{color:"orange",fontSize:20}}>{response.data}</div>
+        output = <div style={{color:"red",fontSize:20}}>{response.data}</div>
       }
       this.setState({sentimentOutput:output});
     });
@@ -73,10 +73,24 @@ class App extends React.Component {
     ret = axios.get(url);
 
     ret.then((response)=>{
-      this.setState({sentimentOutput:<EmotionTable emotions={response.data}/>});
+
+      //this.setState({sentimentOutput:<EmotionTable emotions={response.data}/>});
+
+      let listOfEmotions = response.data;
+      let listOfEmotionsAsArray = Object.entries(listOfEmotions);
+      let emotionDetails = listOfEmotionsAsArray.map((emotionDetail)=>{
+        return <tr><td style={{color: "black",border: "1px solid black"}}>{emotionDetail[0]} </td>
+        <td style={{color: "black",border: "1px solid black"}}> {emotionDetail[1]} </td>
+        </tr>
+      })
+      this.setState({sentimentOutput:<table width="100%" style={{border: "1px solid black"}}><tbody>{emotionDetails}</tbody></table> });
+
   });
   }
   
+  componentDidMount(){
+    document.title = "Sentiment Analyzer"
+  }
 
   render() {
     return (  
