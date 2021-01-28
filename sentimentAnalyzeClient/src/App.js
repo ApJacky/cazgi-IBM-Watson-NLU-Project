@@ -53,9 +53,9 @@ class App extends React.Component {
       if(response.data === "positive") {
         output = <div style={{color:"green",fontSize:20}}>{response.data}</div>
       } else if (response.data === "negative"){
-        output = <div style={{color:"yellow",fontSize:20}}>{response.data}</div>
-      } else {
         output = <div style={{color:"red",fontSize:20}}>{response.data}</div>
+      } else {
+        output = <div style={{color:"yellow",fontSize:20}}>{response.data}</div>
       }
       this.setState({sentimentOutput:output});
     });
